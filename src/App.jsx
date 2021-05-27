@@ -8,11 +8,12 @@ import {
   Row,
   Col,
   Card,
-  Button,
   Text,
   Spacer,
   Divider,
+  Button,
 } from "@geist-ui/react"
+import OptionButton from "./OptionButton"
 
 function App() {
   const [rightCapital, setRightCapital] = useState("")
@@ -55,19 +56,9 @@ function App() {
               ? questionOptions.map((option) => (
                   <>
                     <Row justify='center'>
-                      <Button
-                        id={option}
-                        size='large'
-                        type={
-                          isAnswerShown
-                            ? option == rightCapital
-                              ? "success"
-                              : "default"
-                            : "default"
-                        }
-                        onClick={showAnswer}>
+                      <OptionButton id={option} rightCapital={rightCapital}>
                         {option}
-                      </Button>
+                      </OptionButton>
                     </Row>
                     <Spacer y={1} />
                   </>
