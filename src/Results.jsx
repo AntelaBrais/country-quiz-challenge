@@ -3,6 +3,7 @@ import { useState, useEffect, Fragment } from "react"
 import { getAllCountriesQuestion } from "./FetchAllCountries"
 import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
 
+// TODO: Format, polish and pass props
 function Results() {
   return (
     <Page>
