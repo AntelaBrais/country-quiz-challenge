@@ -20,6 +20,7 @@ function App() {
   const [questionOptions, setQuestionOptions] = useState([])
   const [colorOption, setColorOption] = useState("default")
   const [isAnswerShown, setIsAnswerShown] = useState(false)
+  const [reloadQuestion, setReloadQuestion] = useState(false)
 
   function showAnswer() {
     setIsAnswerShown(true)
@@ -32,10 +33,11 @@ function App() {
       })
       setRightCountry(res.questionCapital.choosenCountry)
       setRightCapital(res.questionCapital.choosenCity)
-      options.push(res.questionCapital.choosenCity)
+      let randomPosition = Math.random() * (options.length - 0) + 0
+      options.splice(randomPosition, 0, res.questionCapital.choosenCity)
       setQuestionOptions(options)
     })
-  }, [])
+  }, [reloadQuestion])
 
   return (
     <Page>
@@ -73,7 +75,11 @@ function App() {
               : ""}
             <Row justify='end'>
               <Col span={12}>
-                <Button type='warning'>Next</Button>
+                <Button
+                  type='warning'
+                  onClick={() => setReloadQuestion(!reloadQuestion)}>
+                  Next
+                </Button>
               </Col>
             </Row>
           </Card>
