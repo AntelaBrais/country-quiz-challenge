@@ -1,5 +1,3 @@
-let countriesData = []
-
 async function getAllCountriesQuestion() {
   let response = await fetch("https://restcountries.eu/rest/v2/all")
   let data = await response.json()
@@ -18,7 +16,7 @@ async function getAllCountriesQuestion() {
   const generateOptions = (numberOfOpions) => {
     for (let i = 0; i < numberOfOptions; i++) {
       let indexI = Math.round(Math.random() * data.length)
-      if (indexI == index) {
+      if (indexI === index) {
         console.log(indexI)
         console.log(index)
         indexI++

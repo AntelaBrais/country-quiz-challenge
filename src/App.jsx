@@ -1,31 +1,14 @@
-import logo from "./logo.svg"
 import "./App.css"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, Fragment } from "react"
 import { getAllCountriesQuestion } from "./FetchAllCountries"
-import QuestionOption from "./QuestionOption"
-import {
-  Page,
-  Row,
-  Col,
-  Card,
-  Text,
-  Spacer,
-  Divider,
-  Button,
-} from "@geist-ui/react"
-import OptionButton from "./OptionButton"
+import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
 
 function App() {
   const [rightCapital, setRightCapital] = useState("")
   const [rightCountry, setRightCountry] = useState("")
   const [questionOptions, setQuestionOptions] = useState([])
-  const [colorOption, setColorOption] = useState("default")
   const [isAnswerShown, setIsAnswerShown] = useState(false)
   const [reloadQuestion, setReloadQuestion] = useState(false)
-
-  function showAnswer() {
-    setIsAnswerShown(true)
-  }
 
   useEffect(() => {
     getAllCountriesQuestion().then((res) => {
@@ -53,15 +36,24 @@ function App() {
               </Text>
             </Row>
             {questionOptions
-              ? questionOptions.map((option) => (
-                  <>
+              ? questionOptions.map((option, index) => (
+                  <Fragment key={index}>
                     <Row justify='center'>
-                      <OptionButton id={option} rightCapital={rightCapital}>
+                      <Button
+                        id={option}
+                        type={
+                          isAnswerShown
+                            ? option === rightCapital
+                              ? "success"
+                              : "error"
+                            : "default"
+                        }
+                        onClick={() => setIsAnswerShown(true)}>
                         {option}
-                      </OptionButton>
+                      </Button>
                     </Row>
                     <Spacer y={1} />
-                  </>
+                  </Fragment>
                 ))
               : ""}
             <Row justify='end'>
