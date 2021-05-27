@@ -1,98 +1,29 @@
+import { Fragment, useState, useCallback } from "react"
 import "./App.css"
-import { useState, useEffect, Fragment } from "react"
-import { getAllCountriesQuestion } from "./FetchAllCountries"
-import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
+import Game from "./Game"
+import Results from "./Results"
+import { Text } from "@geist-ui/react"
 
 function App() {
-  const [rightCapital, setRightCapital] = useState("")
-  const [rightCountry, setRightCountry] = useState("")
-  const [questionOptions, setQuestionOptions] = useState([])
-  const [isAnswerShown, setIsAnswerShown] = useState(false)
-  const [reloadQuestion, setReloadQuestion] = useState(false)
   const [points, setPoints] = useState(0)
-  const [questionIndex, setQuestionIndex] = useState(0)
+  const [isEnd, setIsEnd] = useState(false)
 
-  const numberOfQuestions = 10
+  const callbackPoints = useCallback((points) => {
+    setPoints(points)
+  }, [])
 
-  useEffect(() => {
-    getAllCountriesQuestion().then((res) => {
-      let options = res.otherCapitalOptions.map((option) => {
-        return option
-      })
-      setRightCountry(res.questionCapital.choosenCountry)
-      setRightCapital(res.questionCapital.choosenCity)
-      let randomPosition = Math.random() * (options.length - 0) + 0
-      options.splice(randomPosition, 0, res.questionCapital.choosenCity)
-      setQuestionOptions(options)
-    })
-  }, [reloadQuestion])
-
-  useEffect(() => {
-    console.log(points)
-  }, [points])
-
-  function showAnswers(option) {
-    if (!isAnswerShown) {
-      setIsAnswerShown(true)
-      if (option === rightCapital) {
-        setPoints(points + 1)
-      }
-    }
-  }
+  const callbackEnd = useCallback((end) => {
+    setIsEnd(end)
+  }, [])
 
   return (
-    <Page>
-      <Row justify='center'>
-        <Col span={12}>
-          <Card shadow>
-            <Row justify='center'>
-              <Text>{`Pregunta ${questionIndex} de ${numberOfQuestions}`}</Text>
-              <Text>
-                {rightCountry && rightCapital
-                  ? `What is the capital of ${rightCountry}? (${rightCapital})`
-                  : ""}
-              </Text>
-            </Row>
-            {questionOptions
-              ? questionOptions.map((option, index) => (
-                  <Fragment key={index}>
-                    <Row justify='center'>
-                      <Button
-                        id={option}
-                        type={
-                          isAnswerShown
-                            ? option === rightCapital
-                              ? "success"
-                              : "error"
-                            : "default"
-                        }
-                        onClick={() => showAnswers(option)}>
-                        {option}
-                      </Button>
-                    </Row>
-                    <Spacer y={1} />
-                  </Fragment>
-                ))
-              : ""}
-            <Row justify='end'>
-              <Col span={12}>
-                <Button
-                  type='warning'
-                  onClick={() => {
-                    setIsAnswerShown(false)
-                    setReloadQuestion(!reloadQuestion)
-                    questionIndex <= numberOfQuestions
-                      ? setQuestionIndex(questionIndex + 1)
-                      : console.log("The End")
-                  }}>
-                  Next
-                </Button>
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-      </Row>
-    </Page>
+    <Fragment>
+      {!isEnd ? (
+        <Game checkPoints={callbackPoints} checkIsEnd={callbackEnd} />
+      ) : (
+        <Results />
+      )}
+    </Fragment>
   )
 }
 
