@@ -3,8 +3,8 @@ import { useState, useEffect, Fragment } from "react"
 import { getAllCountriesQuestion } from "./FetchAllCountries"
 import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
 
-// TODO: Format, polish and pass props
-function Results() {
+// TODO: Format, polish
+function Results({ points }) {
   return (
     <Page>
       <Row justify='center'>
@@ -15,7 +15,7 @@ function Results() {
             </Row>
             <Row justify='end'>
               <Col span={12}>
-                <Text>{`You got X correct answers`}</Text>
+                <Text>{`You got ${points} correct answers`}</Text>
               </Col>
             </Row>
           </Card>

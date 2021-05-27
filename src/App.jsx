@@ -21,7 +21,7 @@ function App() {
       {!isEnd ? (
         <Game checkPoints={callbackPoints} checkIsEnd={callbackEnd} />
       ) : (
-        <Results />
+        <Results points={points} />
       )}
     </Fragment>
   )
