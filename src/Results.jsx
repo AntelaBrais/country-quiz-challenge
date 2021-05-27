@@ -1,7 +1,5 @@
 import "./App.css"
-import { useState, useEffect, Fragment } from "react"
-import { getAllCountriesQuestion } from "./FetchAllCountries"
-import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
+import { Page, Row, Col, Card, Text } from "@geist-ui/react"
 
 // TODO: Format, polish
 function Results({ points }) {
@@ -13,10 +11,8 @@ function Results({ points }) {
             <Row justify='center'>
               <Text>{`Results`}</Text>
             </Row>
-            <Row justify='end'>
-              <Col span={12}>
-                <Text>{`You got ${points} correct answers`}</Text>
-              </Col>
+            <Row justify='center'>
+              <Text>{`You got ${points} correct answers`}</Text>
             </Row>
           </Card>
         </Col>

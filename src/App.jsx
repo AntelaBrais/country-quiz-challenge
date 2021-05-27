@@ -2,7 +2,6 @@ import { Fragment, useState, useCallback } from "react"
 import "./App.css"
 import Game from "./Game"
 import Results from "./Results"
-import { Text } from "@geist-ui/react"
 
 function App() {
   const [points, setPoints] = useState(0)
