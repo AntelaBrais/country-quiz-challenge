@@ -28,9 +28,7 @@ function Game({ checkPoints, checkIsEnd }) {
     })
   }, [reloadQuestion])
 
-  useEffect(() => {
-    console.log(points)
-  }, [points])
+  useEffect(() => {}, [points])
 
   function showAnswers(option) {
     if (!isAnswerShown) {
@@ -48,10 +46,13 @@ function Game({ checkPoints, checkIsEnd }) {
         <Col span={12}>
           <Card shadow>
             <Row justify='center'>
-              <Text>{`Pregunta ${questionIndex} de ${numberOfQuestions}`}</Text>
+              <Text
+                h1>{`Question ${questionIndex} of ${numberOfQuestions}`}</Text>
+            </Row>
+            <Row justify='center'>
               <Text>
                 {rightCountry && rightCapital
-                  ? `What is the capital of ${rightCountry}? (${rightCapital})`
+                  ? `What is the capital of ${rightCountry}?`
                   : ""}
               </Text>
             </Row>

@@ -9,7 +9,7 @@ function Results({ points }) {
         <Col span={12}>
           <Card shadow>
             <Row justify='center'>
-              <Text>{`Results`}</Text>
+              <Text h1>{`Results`}</Text>
             </Row>
             <Row justify='center'>
               <Text>{`You got ${points} correct answers`}</Text>
