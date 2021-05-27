@@ -3,7 +3,6 @@ import { useState, useEffect, Fragment } from "react"
 import { getAllCountriesQuestion } from "./FetchAllCountries"
 import { Page, Row, Col, Card, Text, Spacer, Button } from "@geist-ui/react"
 
-// TODO: Format and polish
 function Game({ checkPoints, checkIsEnd }) {
   const [rightCapital, setRightCapital] = useState("")
   const [rightCountry, setRightCountry] = useState("")
@@ -17,9 +16,7 @@ function Game({ checkPoints, checkIsEnd }) {
 
   useEffect(() => {
     getAllCountriesQuestion().then((res) => {
-      let options = res.otherCapitalOptions.map((option) => {
-        return option
-      })
+      let options = res.otherCapitalOptions.map((option) => option)
       setRightCountry(res.questionCapital.choosenCountry)
       setRightCapital(res.questionCapital.choosenCity)
       let randomPosition = Math.random() * (options.length - 0) + 0
