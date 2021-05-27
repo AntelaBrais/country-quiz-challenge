@@ -9,6 +9,10 @@ function App() {
   const [questionOptions, setQuestionOptions] = useState([])
   const [isAnswerShown, setIsAnswerShown] = useState(false)
   const [reloadQuestion, setReloadQuestion] = useState(false)
+  const [points, setPoints] = useState(0)
+  const [questionIndex, setQuestionIndex] = useState(0)
+
+  const numberOfQuestions = 10
 
   useEffect(() => {
     getAllCountriesQuestion().then((res) => {
@@ -23,12 +27,26 @@ function App() {
     })
   }, [reloadQuestion])
 
+  useEffect(() => {
+    console.log(points)
+  }, [points])
+
+  function showAnswers(option) {
+    if (!isAnswerShown) {
+      setIsAnswerShown(true)
+      if (option === rightCapital) {
+        setPoints(points + 1)
+      }
+    }
+  }
+
   return (
     <Page>
       <Row justify='center'>
         <Col span={12}>
           <Card shadow>
             <Row justify='center'>
+              <Text>{`Pregunta ${questionIndex} de ${numberOfQuestions}`}</Text>
               <Text>
                 {rightCountry && rightCapital
                   ? `What is the capital of ${rightCountry}? (${rightCapital})`
@@ -48,7 +66,7 @@ function App() {
                               : "error"
                             : "default"
                         }
-                        onClick={() => setIsAnswerShown(true)}>
+                        onClick={() => showAnswers(option)}>
                         {option}
                       </Button>
                     </Row>
@@ -60,7 +78,13 @@ function App() {
               <Col span={12}>
                 <Button
                   type='warning'
-                  onClick={() => setReloadQuestion(!reloadQuestion)}>
+                  onClick={() => {
+                    setIsAnswerShown(false)
+                    setReloadQuestion(!reloadQuestion)
+                    questionIndex <= numberOfQuestions
+                      ? setQuestionIndex(questionIndex + 1)
+                      : console.log("The End")
+                  }}>
                   Next
                 </Button>
               </Col>
